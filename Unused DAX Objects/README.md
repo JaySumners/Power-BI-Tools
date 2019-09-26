@@ -17,7 +17,7 @@ Put all files in the same directory and run as usual.
 ### Python
 #### Files Needed
 + Unused Objects - v1.0.0.0.py
-+ powersehll_scripts folder
++ powershell_scripts folder
 
 #### Instructions
 Put all files in the same directory and run as usual.
