@@ -7,7 +7,7 @@ After building a model or making significant changes, I tend to end up with a nu
 ### R
 #### Files Needed
 + Unused Objects - v1.0.0.0.R
-+ powershell_scripts folder | testing
++ powershell_scripts folder
 
 I've also included an `Unused Dax Objects.Rproj` for ease of use.
 
