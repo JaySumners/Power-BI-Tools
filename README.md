@@ -17,6 +17,7 @@ These tools are currently in the repository and available for use.
 Tools | Purpose | Languages (Version)
 --- | --- | ---
 *Unused DAX Objects* | Returns objects in you loaded Power BI model that are not necessary to any visualized calculation | R(`3.6.1`), Python(`3.7.4`)
+*Convert Excel to CSV* | Converts the selected sheet of an Excel file to a CSV in the same directory | PowerShell(`3.0`)
 
 ### Future Tools
 + DAX dependencies network graph (R/Python)
