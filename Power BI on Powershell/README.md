@@ -28,7 +28,7 @@ Tool | Special Permissions | Resources | Description
 ---- | ---- | ---- | ----
 `Get Power BI User Activity.ps1` | Power BI Admin | | Get user activity throught the tenant.
 `Get & Combine Power BI Pro Users & Activity.ps1` | Power BI Admin | | Return  a CSV with all Power BI Pro license holders and their most recent activty.
-`Remove Broken Gateways.ps1' | Power BI Admin | | Remove broken gateways.
+`Remove Broken Gateways.ps1` | Power BI Admin | | Remove broken gateways.
 `Visualize Licenses & Activity.pbix` | None | | Visualizes the output of `Get Pro License Users.ps1` and `Get Power BI User Activity.ps1`. 
 `Visualize Power BI Activity.pbix` | None | | Visualize the output of `Get Power BI User Activity.ps1`.
 
