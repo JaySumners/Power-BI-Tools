@@ -1,96 +1,74 @@
 let
-    fn = (tbl as table, rcd as record, join_column as text, new_col_name as text) =>
-        if 
-            List.Contains(
-                Table.ColumnNames(tbl),
-                new_col_name
-            )
-        then 
-            error Error.Record(
-                "Invalid Parameter",
-                "Duplicate Column Name", 
-                new_col_name & " (the new column name) already exists in the table."
-            )
-        else
-            let
-                type_rcd = Value.Type(Record.ToList(rcd){0}),
+    fn = (tbl as table, rcd as record, replace_in_column as text, optional no_match as any) =>
+        let
+            type_rcd = Value.Type(Record.ToList(rcd){0}),
 
-                Temp_Rename =
-                    Table.RenameColumns(
-                        tbl,
-                        {{join_column, "join"}}
-                    ),
-
-                Source = 
-                    Table.AddColumn(
-                        Temp_Rename,
-                        new_col_name,
+            Source = 
+                Table.TransformColumns(
+                    tbl,
+                    {
+                        replace_in_column,
                         each
-                            if [join] = null
-                            then null
+                            if _ = null 
+                            then no_match
                             else
                                 Record.FieldOrDefault(
                                     rcd,
-                                    [join],
-                                    null
+                                    _,
+                                    no_match
                                 ),
-                        type_rcd  
-                    ),
-
-                Undo_Rename =
-                    Table.RenameColumns(
-                        Source,
-                        {{"join", join_column}}
-                    )      
-            in
-                Undo_Rename,
-
-            fnType = type function
-                (
-                    tbl as 
-                        (
-                            type table meta 
-                                [
-                                    Documentation.FieldCaption = "Table",
-                                    Documentation.FieldDescription = "No Description"
-                                ]
-                        ), 
-                    rcd as
-                        (
-                            type record meta 
-                                [
-                                    Documentation.FieldCaption = "Record",
-                                    Documentation.FieldDescription = "No Description"
-                                ]
-                        ), 
-                    join_column as
-                        (
-                            type text meta 
-                                [
-                                    Documentation.FieldCaption = "Join Column",
-                                    Documentation.FieldDescription = "No Description"
-                                ]
-                        ), 
-                    new_col_name as
-                        (
-                            type text meta 
-                                [
-                                    Documentation.FieldCaption = "New Column Name",
-                                    Documentation.FieldDescription = "No Description"
-                                ]
-                        )
-                ) as list meta
-                    [
-                        Documentation.Name = "Table_RecordLeftOuterJoin",
-                        Documentation.LongDescription = "A left outer join using a record. This process is much faster for a one-to-many or many-to-one join than using the standard ""Merge"". Author: Jay Sumners. Repo: https://github.com/JaySumners/Power-BI-Tools",
-                        Documentation.Examples =
-                        {
-                            [
-                                Description = "Example Description",
-                                Code = "Table_RecordLeftOuterJoin(mytable,myrecord,""Column1"", ""NewColumn"")",
-                                Result = "a table"
-                            ]
-                        }
-                    ]
+                        type_rcd
+                    }
+                )   
         in
-            Value.ReplaceType(fn, fnType)
+            Source,
+
+    fnType = type function
+        (
+            tbl as
+                (
+                    type table meta 
+                        [
+                            Documentation.FieldCaption = "Table",
+                            Documentation.FieldDescription = "No Description"
+                        ]
+                ), 
+            rcd as
+                (
+                    type record meta 
+                        [
+                            Documentation.FieldCaption = "Record",
+                            Documentation.FieldDescription = "No Description"
+                        ]
+                ), 
+            replace_in_column as
+                (
+                    type text meta 
+                        [
+                            Documentation.FieldCaption = "Column to Transform (as text)",
+                            Documentation.FieldDescription = "No Description"
+                        ]
+                ),
+            optional no_match as 
+                (
+                    type any meta
+                        [
+                            Documentation.FieldCaption = "(Optional) Value if No Match Found (default is null)",
+                            Documentation.FieldDescription = "No Description"
+                        ]
+                )
+        ) as list meta
+            [
+                Documentation.Name = "Table_RecordReplaceValues",
+                Documentation.LongDescription = "A multi-value replace using an established or manually entered record. NOTE: You cannot replace nulls using a record. Author: Jay Sumners. Repo: https://github.com/JaySumners/Power-BI-Tools",
+                Documentation.Examples =
+                {
+                    [
+                        Description = "Example Description",
+                        Code = "Table_RecordReplaceValues(mytable, myrecord,""column I want to replace value in"", ""optional no-match value"")",
+                        Result = "a table"
+                    ]
+                }
+            ]
+in
+    Value.ReplaceType(fn, fnType)
