@@ -31,7 +31,7 @@ if (Get-Module -Name MicrosoftPowerBIMgmt -ListAvailable) {
     [Console]::WriteLine("MicrosoftPowerBIMgmt Module Already Installed...")
 } 
 else {
-    [Console]::WriteLine('Installing SqlServer Module...')
+    [Console]::WriteLine('Installing MicrosoftPowerBIMgmt Module...')
     Install-Module -Name MicrosoftPowerBIMgmt -Force
 }
 
