@@ -16,6 +16,7 @@ These tools are currently in the repository and available for use.
 
 Tools | Purpose | Languages (Version)
 --- | --- | ---
+*Report Download Utlity* | CLI & WinForms GUI to download Power BI reports on the Service as a PDF or PPTX | Windows PowerShell ('5.1')
 *Unused DAX Objects* | Returns objects in you loaded Power BI model that are not necessary to any visualized calculation | R(`3.6.1`), Python(`3.7.4`)
 *Convert Excel to CSV* | Converts the selected sheet of an Excel file to a CSV in the same directory | PowerShell(`3.0`)
 
