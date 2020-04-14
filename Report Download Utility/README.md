@@ -1,4 +1,4 @@
-# Unused DAX Objects
+# Report Download Utility (PDF & PPTX)
 ## Disclaimer
 Script is provided without any guarantee. It has been tested without adverse effects on the machines I own.
 
