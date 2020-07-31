@@ -10,7 +10,7 @@ This WinForms utility downloads a Power BI Report on the Service as a PDF or PPT
 
 ### PowerShell
 #### Files Needed
-+ Power BI Report Download Utility_0.0.0.9000.ps1
++ Power BI Report Download Utility_0.0.0.x.ps1
 
 #### Instructions
 For the first run on a machine, run as an administrator (it will need to install a module). After that, run in the CLI or right click and select "Run with Powershell".
