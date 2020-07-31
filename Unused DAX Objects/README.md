@@ -1,3 +1,6 @@
+**SUPERSEDED BY [Documentation Utility](https://github.com/JaySumners/Power-BI-Tools/tree/master/Documentation%20Utility)**
+
+
 # Unused DAX Objects
 ## Overview
 After building a model or making significant changes, I tend to end up with a number of measures or columns (or even tables) that are no longer connected any visualization (directly or by calculation). This script recursively searches dependencies and lists those objects that are not necessary to produce the report in its current form.
