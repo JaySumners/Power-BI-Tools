@@ -1,45 +1,3 @@
-﻿<#
-.SYNOPSIS
-
-Downloads PBIX from Power BI Service as PPTX or PDF.
-
-.DESCRIPTION
-
-Uses the Power BI Rest API to generate a PPTX or PDF of a Power BI report,
-on the server and saves it locally.
-
-.PARAMETER pbixFilePath
-
-Specifies the name and path for the PBIX file you are documenting.
-
-Type: String
-Optional: Absense will trigger the WinForms GUI.
-
-.PARAMETER outputFolder
-
-Specifies the directory where the output documents will be stored.
-
-Type: String
-Optional: Absense will trigger the WinForms GUI.
-
-.PARAMETER outputDocuments
-
-Types of reports to generate. Limited options.
-
-Type: String or Array of Strings
-Optional: Absense will trigger the WinForms GUI.
-Options: DataDescriptions, VisualContainers, UnusedObjects
-
-.INPUTS
-
-None. You cannot pipe objects to Update-Month.ps1.
-
-.OUTPUTS
-
-No pipleline outputs. The script will only output documents to the save
-location indicated in the parameters.
-#>
-
 Param(
     $pbixFilePath,
     $outputFolder,
@@ -49,7 +7,7 @@ Param(
 ##############################################################
 # Power BI Unused Objects Retreival
 # NOTE: Very similar to Power BI Data Definition Retreival
-# Version:        1.0.1.0
+# Version:        1.0.1.1
 # Author:         Jay Sumners
 # Last Update :   2021-09-04
 ##############################################################
@@ -376,6 +334,9 @@ $tmp = $tmpPath + "\"
 ####################################### Functions #######################################
 [Console]::WriteLine('Setting Functions...')
 
+$local_list.Select | Select-Object -Property Name, @{n='Table_ID';e={$_.Aggregation.Expression.Column.Expression.SourceRef.Source}}, @{n='Object_ID';e={$_.Aggregation.Expression.Column.Property}}
+
+
 function Lookup-Left {
     Param($LTbl, $LJoin, $RTbl, $RJoin, $RColName)
 
@@ -404,7 +365,7 @@ function Parse-PrototypeQuery {
 
         $local_measures = $local_list.Select | Select-Object -Property Name, @{n='Table_ID';e={$_.Measure.Expression.SourceRef.Source}}, @{n='Object_ID';e={$_.Measure.Property}}
         $local_columns = $local_list.Select | Select-Object -Property Name, @{n='Table_ID';e={$_.Column.Expression.SourceRef.Source}}, @{n='Object_ID';e={$_.Column.Property}}
-        $local_aggregations = $local_list.Select.Aggregation | Select-Object -Property Name, @{n='Table_ID';e={$_.Aggregation.Expression.SourceRef.Source}}, @{n='Object_ID';e={$_.Aggregation.Property}}
+        $local_aggregations = $local_list.Select | Select-Object -Property Name, @{n='Table_ID';e={$_.Aggregation.Expression.Column.Expression.SourceRef.Source}}, @{n='Object_ID';e={$_.Aggregation.Expression.Column.Property}}
 
         #Combine and build out local_objects
         $local_objects = @($local_measures, $local_columns, $local_aggregations).ForEach({$_ | Where-Object {$_.Object_ID -ne $null}})
@@ -507,6 +468,10 @@ while (($cont_switch) -and ($cont_cnt -lt 30)){
     Start-Sleep -Seconds 2
     ++$cont_cnt
 }
+
+# Giving report time to open
+[Console]::WriteLine('  Wait for open...')
+Start-Sleep -Seconds 10
 
 # Get Port and Connection information
 $remote_port = ($remote_port | Measure-Object -Property RemotePort -Maximum).Maximum
