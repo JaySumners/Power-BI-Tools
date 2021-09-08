@@ -7,7 +7,7 @@ Param(
 ##############################################################
 # Power BI Unused Objects Retreival
 # NOTE: Very similar to Power BI Data Definition Retreival
-# Version:        1.0.1.1
+# Version:        1.0.1.2
 # Author:         Jay Sumners
 # Last Update :   2021-09-04
 ##############################################################
@@ -37,8 +37,8 @@ if((Test-Param $pbixFilePath) -or (Test-Param $outputFolder)) {
 
     # Get Monitor Size and conversion function
     $monitor = [System.Windows.Forms.Screen]::PrimaryScreen
-    $widthFactor  = 1366 / $monitor.WorkingArea.Width
-    $heightFactor = 728  / $monitor.WorkingArea.Height
+    $widthFactor  = (@((1366 / $monitor.WorkingArea.Width),  1) | Measure-Object -Maximum).Maximum
+    $heightFactor = (@((728  / $monitor.WorkingArea.Height), 1) | Measure-Object -Maximum).Maximum
 
     function Get-X {
         Param($x)
