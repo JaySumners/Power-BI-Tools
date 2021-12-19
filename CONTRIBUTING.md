@@ -1,5 +1,5 @@
 # Contributing
-First off, thank you for considering contributing to the project. The tools I've built have been mostly for my personal use and for my colleagues at Discovery, so they can be rough.
+First off, thank you for considering contributing to the project. The tools I've built have been mostly for my personal use so they can be rough.
 
 ## Submitting Changes
 ### Versioning
