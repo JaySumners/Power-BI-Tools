@@ -22,6 +22,7 @@ Function | Article(s) | Description
 ---- | ---- | ----
 `Table_RecordLeftOuterJoin()` | [Mimicking Python Dictonaries in Power Query: Part 1](https://www.linkedin.com/pulse/mimicking-python-dictionaries-power-query-m-how-why-sumners-m-i-a-/) | A left outer join using a record. This process is much faster for a one-to-many or many-to-one join than using the standard ""Merge"".
 `Table_RecordReplaceValues()` | [Mimicking Python Dictonaries in Power Query: Part 1](https://www.linkedin.com/pulse/mimicking-python-dictionaries-power-query-m-how-why-sumners-m-i-a-/) | A multi-value replace using an established or manually entered record. NOTE: You cannot replace nulls using a record.
+`Text_Squish()` |  | A recurisve replace of repeated spaces. 
 
 ## Upcoming Functions
 
